@@ -1,0 +1,1 @@
+for inili use npm i , npm start
