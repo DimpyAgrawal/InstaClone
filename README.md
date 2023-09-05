@@ -1,1 +1,1 @@
-for inili use npm i , npm start
+for initialisation use npm i , npm start
