@@ -22,9 +22,7 @@ function LogoutModal({ setModalOpen }) {
     navigate('/signin');
   };
 
-  const handleClose = () => {
-    setModalOpen(false);
-  };
+  
 
   return (
     <div className='flex flex-col m-auto justify-center my-60'>

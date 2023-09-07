@@ -6,26 +6,24 @@ const USER = mongoose.model("USER");
 
 
 // find the data of the user
-router.get("/user/:id", (req, res) => {
-    USER.findOne({ _id: req.params.id })
-        .select("-password")   // jo cheej nhi get krni uske liye 
-        .then(user => {
-            res.json(user => {
-                POST.find({ postedBy: req.params.id })
-                    .populate("postedBy", "_id")
-                    .exec((err, post) => {
-                        if (err) {
-                            return res.status(422).json({ error: err })
-                        }
-                        res.status(200).json({ user, post })
-                    })
-            })
-            // .catch(err => {
-            //     return res.status(404).json({ error: "User not found" })
-            // })
+router.get("/user/:id", async (req, res) => {
+    try {
+        const user = await USER.findOne({ _id: req.params.id }).select("-password");
 
-        })
-})
+        if (!user) {
+            return res.status(404).json({ error: "User not found" });
+        }
+
+        const posts = await POST.find({ postedBy: req.params.id })
+            .populate("postedBy", "_id");
+
+        return res.status(200).json({user, posts });
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({ error: "Internal Server Error" });
+    }
+});
+
 
 
 
