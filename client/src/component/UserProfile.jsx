@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 
 export default function UserProfile() {
   const {userid} = useParams()
-  console.log(userid);
+  //console.log(userid);
   const[pic,setPic] =  useState([]);
   const [show , setShow]  = useState(false)
   const [posts, setPosts] = useState([])
@@ -20,7 +20,7 @@ export default function UserProfile() {
     })
     .then(res=>res.json())
     .then((result) => {
-      console.log(result);
+      //console.log(result);
       setUser(result.user)
       setPosts(result.posts)
     })
@@ -30,7 +30,7 @@ export default function UserProfile() {
   // console.log(name);
   return (
     <>
-      <div className='flex flex-col m-auto w-[45%] mt-1'>
+      {/* <div className='flex flex-col m-auto w-[45%] mt-1'> */}
         name: {name}
         <br />
         Username: {userName}
@@ -40,18 +40,24 @@ export default function UserProfile() {
         {pic &&
           posts.map((pics) => (
             <div key={pics._id}>
-               <img src={pics.photo}
+               <img 
+               className='h-[140px] '
+               src={pics.photo}
               //  onClick={()=>{
               //     toggleDetails(pics)
               //  }}
                 alt="" />
             </div>
           ))}
+          
           <h1>{user.name}</h1>
-          <p>{posts.length}posts</p>
-      </div>
+          <p>{posts.length}posts</p> 
+      {/* </div>
       {/*------------------------- */}
+ 
+           
     </>
   );
+  
   
 }
